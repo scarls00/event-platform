@@ -3,13 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { useAuth } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from '@/components/ui/button';
 
 
 const Header = () => {
-  const { userId } = useAuth();
-
   return (
       <header className="w-full border-b">
         <div className="wrapper flex items-center justify-between">
@@ -22,13 +20,13 @@ const Header = () => {
             </Link>
 
             <div className="flex w-32 justify-end gap-3">
-              {!userId && (
-                <Button asChild className="rounded-full" size="lg">
-                  <Link href="/sign-in">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button className="rounded-full" size="lg">
                     Login
-                  </Link>
-                </Button>
-              )}
+                  </Button>
+                </SignInButton>
+              </SignedOut>
             </div>
         </div>
       </header>
